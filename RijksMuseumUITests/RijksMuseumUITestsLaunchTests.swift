@@ -1,10 +1,3 @@
-//
-//  RijksMuseumUITestsLaunchTests.swift
-//  RijksMuseumUITests
-//
-//  Created by Nikita Kononenko on 22.01.2025.
-//
-
 import XCTest
 
 final class RijksMuseumUITestsLaunchTests: XCTestCase {

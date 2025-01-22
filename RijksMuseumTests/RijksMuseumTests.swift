@@ -1,10 +1,3 @@
-//
-//  RijksMuseumTests.swift
-//  RijksMuseumTests
-//
-//  Created by Nikita Kononenko on 22.01.2025.
-//
-
 import XCTest
 @testable import RijksMuseum
 
