@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		85B669EE2D412B78005C654F /* PlistReader in Frameworks */ = {isa = PBXBuildFile; productRef = 85B669ED2D412B78005C654F /* PlistReader */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		85AD05462D41004100E37660 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85B669EE2D412B78005C654F /* PlistReader in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +96,7 @@
 				85AD05312D41004000E37660 /* RijksMuseum */,
 				85AD05482D41004100E37660 /* RijksMuseumTests */,
 				85AD05522D41004100E37660 /* RijksMuseumUITests */,
+				85B669EC2D412B78005C654F /* Frameworks */,
 				85AD05302D41004000E37660 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +109,13 @@
 				85AD054F2D41004100E37660 /* RijksMuseumUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		85B669EC2D412B78005C654F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +138,7 @@
 			);
 			name = RijksMuseum;
 			packageProductDependencies = (
+				85B669ED2D412B78005C654F /* PlistReader */,
 			);
 			productName = RijksMuseum;
 			productReference = 85AD052F2D41004000E37660 /* RijksMuseum.app */;
@@ -208,6 +222,9 @@
 			);
 			mainGroup = 85AD05262D41004000E37660;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				85B669E72D4126C6005C654F /* XCLocalSwiftPackageReference "Dependencies/PlistReader" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 85AD05302D41004000E37660 /* Products */;
 			projectDirPath = "";
@@ -565,6 +582,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		85B669E72D4126C6005C654F /* XCLocalSwiftPackageReference "Dependencies/PlistReader" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Dependencies/PlistReader;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		85B669ED2D412B78005C654F /* PlistReader */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 85B669E72D4126C6005C654F /* XCLocalSwiftPackageReference "Dependencies/PlistReader" */;
+			productName = PlistReader;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 85AD05272D41004000E37660 /* Project object */;
 }
