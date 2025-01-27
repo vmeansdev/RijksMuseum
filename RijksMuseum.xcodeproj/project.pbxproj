@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		85720ABD2D47A8B80059CF2B /* AppHttpKit in Frameworks */ = {isa = PBXBuildFile; productRef = 85720ABC2D47A8B80059CF2B /* AppHttpKit */; };
 		85B669EE2D412B78005C654F /* PlistReader in Frameworks */ = {isa = PBXBuildFile; productRef = 85B669ED2D412B78005C654F /* PlistReader */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85B669EE2D412B78005C654F /* PlistReader in Frameworks */,
+				85720ABD2D47A8B80059CF2B /* AppHttpKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +141,7 @@
 			name = RijksMuseum;
 			packageProductDependencies = (
 				85B669ED2D412B78005C654F /* PlistReader */,
+				85720ABC2D47A8B80059CF2B /* AppHttpKit */,
 			);
 			productName = RijksMuseum;
 			productReference = 85AD052F2D41004000E37660 /* RijksMuseum.app */;
@@ -224,6 +227,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				85B669E72D4126C6005C654F /* XCLocalSwiftPackageReference "Dependencies/PlistReader" */,
+				85720ABB2D47A8B80059CF2B /* XCLocalSwiftPackageReference "Dependencies/AppHttpKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 85AD05302D41004000E37660 /* Products */;
@@ -584,6 +588,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		85720ABB2D47A8B80059CF2B /* XCLocalSwiftPackageReference "Dependencies/AppHttpKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Dependencies/AppHttpKit;
+		};
 		85B669E72D4126C6005C654F /* XCLocalSwiftPackageReference "Dependencies/PlistReader" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Dependencies/PlistReader;
@@ -591,6 +599,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		85720ABC2D47A8B80059CF2B /* AppHttpKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppHttpKit;
+		};
 		85B669ED2D412B78005C654F /* PlistReader */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 85B669E72D4126C6005C654F /* XCLocalSwiftPackageReference "Dependencies/PlistReader" */;
