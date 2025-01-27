@@ -12,7 +12,7 @@ public struct Request {
         headers?["Content-Type"]
     }
 
-    public init(method: Method, url: String, queryParams: [String : AnyEncodable]? = nil, headers: [String : String]? = nil) {
+    public init(method: Method = .get, url: String, queryParams: [String : AnyEncodable]? = nil, headers: [String : String]? = nil) {
         self.method = method
         self.url = url
         self.queryParams = queryParams
