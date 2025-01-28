@@ -10,6 +10,7 @@
 		85720ABD2D47A8B80059CF2B /* AppHttpKit in Frameworks */ = {isa = PBXBuildFile; productRef = 85720ABC2D47A8B80059CF2B /* AppHttpKit */; };
 		85720B4A2D47BA3B0059CF2B /* RijksData in Frameworks */ = {isa = PBXBuildFile; productRef = 85720B492D47BA3B0059CF2B /* RijksData */; };
 		85720B912D47FAEA0059CF2B /* RijksUI in Frameworks */ = {isa = PBXBuildFile; productRef = 85720B902D47FAEA0059CF2B /* RijksUI */; };
+		8572155A2D48F9AC0059CF2B /* NavigationKit in Frameworks */ = {isa = PBXBuildFile; productRef = 857215592D48F9AC0059CF2B /* NavigationKit */; };
 		85B669EE2D412B78005C654F /* PlistReader in Frameworks */ = {isa = PBXBuildFile; productRef = 85B669ED2D412B78005C654F /* PlistReader */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 				85B669EE2D412B78005C654F /* PlistReader in Frameworks */,
 				85720ABD2D47A8B80059CF2B /* AppHttpKit in Frameworks */,
 				85720B4A2D47BA3B0059CF2B /* RijksData in Frameworks */,
+				8572155A2D48F9AC0059CF2B /* NavigationKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +150,7 @@
 				85720ABC2D47A8B80059CF2B /* AppHttpKit */,
 				85720B492D47BA3B0059CF2B /* RijksData */,
 				85720B902D47FAEA0059CF2B /* RijksUI */,
+				857215592D48F9AC0059CF2B /* NavigationKit */,
 			);
 			productName = RijksMuseum;
 			productReference = 85AD052F2D41004000E37660 /* RijksMuseum.app */;
@@ -236,6 +239,7 @@
 				85720ABB2D47A8B80059CF2B /* XCLocalSwiftPackageReference "Dependencies/AppHttpKit" */,
 				85720B462D47AE7A0059CF2B /* XCLocalSwiftPackageReference "Dependencies/RijksData" */,
 				85720B8F2D47FAEA0059CF2B /* XCLocalSwiftPackageReference "Dependencies/RijksUI" */,
+				857215582D48F9AC0059CF2B /* XCLocalSwiftPackageReference "Dependencies/NavigationKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 85AD05302D41004000E37660 /* Products */;
@@ -618,6 +622,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Dependencies/RijksUI;
 		};
+		857215582D48F9AC0059CF2B /* XCLocalSwiftPackageReference "Dependencies/NavigationKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Dependencies/NavigationKit;
+		};
 		85B669E72D4126C6005C654F /* XCLocalSwiftPackageReference "Dependencies/PlistReader" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Dependencies/PlistReader;
@@ -637,6 +645,10 @@
 		85720B902D47FAEA0059CF2B /* RijksUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RijksUI;
+		};
+		857215592D48F9AC0059CF2B /* NavigationKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NavigationKit;
 		};
 		85B669ED2D412B78005C654F /* PlistReader */ = {
 			isa = XCSwiftPackageProductDependency;
