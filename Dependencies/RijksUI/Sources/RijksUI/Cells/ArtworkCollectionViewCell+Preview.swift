@@ -9,13 +9,17 @@ import SwiftUI
 }
 
 extension ArtworkCollectionViewCell {
-    enum PreviewData {
+    public enum PreviewData {
         static let viewModel = ArtworkViewModel(
             id: "1",
             title: "Coolest painting ever",
             author: "M.E. The painter",
             previewURL: URL(fileURLWithPath: Bundle.module.path(forResource: "pup", ofType: "jpg")!)
         )
+
+        public static func viewModel(with id: String) -> ArtworkViewModel {
+            ArtworkViewModel(id: id, title: viewModel.title, author: viewModel.author, previewURL: viewModel.previewURL)
+        }
     }
 }
 #endif
