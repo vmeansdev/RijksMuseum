@@ -19,6 +19,7 @@ public class ArtworkCollectionViewCell: CollectionViewCell<ArtworkViewModel>, Co
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         return label
     }()
@@ -27,6 +28,7 @@ public class ArtworkCollectionViewCell: CollectionViewCell<ArtworkViewModel>, Co
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
         return label
     }()
