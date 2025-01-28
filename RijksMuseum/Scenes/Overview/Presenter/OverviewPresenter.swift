@@ -2,9 +2,15 @@ import Foundation
 import RijksData
 import RijksUI
 
+struct LoadedOverview {
+    let currentPage: Int
+    let artworks: [Artwork]
+    let hasMoreItems: Bool
+}
+
 enum OverviewState {
     case loading
-    case loaded([Artwork])
+    case loaded(LoadedOverview)
     case error(Error)
 }
 
@@ -20,8 +26,8 @@ final class OverviewPresenter: OverviewPresenterProtocol {
         switch state {
         case .loading:
             view?.displayLoading()
-        case let .loaded(artworks):
-            let collection = artworks.map {
+        case let .loaded(overview):
+            let collection = overview.artworks.map {
                 ArtworkViewModel(id: $0.id, title: $0.title, author: $0.principalOrFirstMaker, previewURL: URL(string: $0.webImage.url)!)
             }
             view?.displayArworks(collection)

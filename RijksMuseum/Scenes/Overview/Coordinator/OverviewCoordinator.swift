@@ -1,12 +1,7 @@
 import NavigationKit
-import RijksUI
+import RijksData
 
-@MainActor
-protocol OverviewCoordinatorProtocol: Coordinator {
-    func showArtworkDetails(_ artwork: ArtworkViewModel)
-}
-
-final class OverviewCoordinator: OverviewCoordinatorProtocol {
+final class OverviewCoordinator: Coordinator {
     private let router: RouterProtocol
     private let serviceProvider: ServiceProviderProtocol
 
@@ -16,11 +11,13 @@ final class OverviewCoordinator: OverviewCoordinatorProtocol {
     }
 
     func start() {
-        let viewController = OverviewViewController.build(artworksService: serviceProvider.artworksService)
+        let viewController = OverviewViewController.build(artworksService: serviceProvider.artworksService, output: self)
         router.push(NavigationDestination(viewController: viewController))
     }
+}
 
-    func showArtworkDetails(_ artwork: ArtworkViewModel) {
-        // TODO: handle details opening
+extension OverviewCoordinator: OverviewInteractorOutput {
+    func didSelect(artwork: Artwork) {
+        
     }
 }

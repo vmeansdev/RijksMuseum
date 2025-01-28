@@ -2,7 +2,7 @@ import NavigationKit
 
 @MainActor
 protocol CoordinatorProviderProtocol {
-    func overviewCoordinator() -> OverviewCoordinatorProtocol
+    func overviewCoordinator() -> Coordinator
 }
 
 final class CoordinatorProvider: CoordinatorProviderProtocol {
@@ -14,7 +14,7 @@ final class CoordinatorProvider: CoordinatorProviderProtocol {
         self.serviceProvider = serviceProvider
     }
 
-    func overviewCoordinator() -> OverviewCoordinatorProtocol {
+    func overviewCoordinator() -> Coordinator {
         OverviewCoordinator(router: router, serviceProvider: serviceProvider)
     }
 }

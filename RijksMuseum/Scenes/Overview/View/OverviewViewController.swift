@@ -11,14 +11,17 @@ protocol OverviewPresentable: AnyObject {
 final class OverviewViewController: UIViewController, OverviewPresentable {
     // MARK: - Properties
     private let interactor: OverviewInteractorProtocol
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionLayout())
-    private lazy var dataSource: UICollectionViewDiffableDataSource<Int, ArtworkViewModel> = {
-        UICollectionViewDiffableDataSource<Int, ArtworkViewModel>(collectionView: collectionView) { collectionView, indexPath, item in
-            let cell = collectionView.dequeueReusableCell(ArtworkCollectionViewCell.self, for: indexPath)
-            (cell as? ArtworkCollectionViewCell)?.configure(with: item)
-            return cell
-        }
+    private lazy var collectionView: UICollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionLayout())
+        view.isPrefetchingEnabled = true
+        view.prefetchDataSource = self
+        view.backgroundColor = .systemBackground
+        view.delegate = self
+        view.dataSource = dataSource
+        view.registerCell(ArtworkCollectionViewCell.self)
+        return view
     }()
+    private var dataSource: UICollectionViewDiffableDataSource<Int, ArtworkViewModel>!
 
     // MARK: - Initialization
     init(interactor: OverviewInteractorProtocol) {
@@ -37,6 +40,7 @@ final class OverviewViewController: UIViewController, OverviewPresentable {
         navigationItem.largeTitleDisplayMode = .automatic
         view.backgroundColor = .systemBackground
         makeLayout()
+        setupDataSource()
         interactor.viewDidLoad()
     }
 
@@ -54,39 +58,41 @@ final class OverviewViewController: UIViewController, OverviewPresentable {
         var snapshot = NSDiffableDataSourceSnapshot<Int, ArtworkViewModel>()
         snapshot.appendSections([0])
         snapshot.appendItems(artworks)
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 
     func displayError(_ error: Error) {
         // TODO: handle error displaying
+    }
+
+    private func setupDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Int, ArtworkViewModel>(collectionView: collectionView) { collectionView, indexPath, item in
+            let cell = collectionView.dequeueReusableCell(ArtworkCollectionViewCell.self, for: indexPath)
+            (cell as? ArtworkCollectionViewCell)?.configure(with: item)
+            return cell
+        }
     }
 }
 
 // MARK: - Layout configuration
 private extension OverviewViewController {
     func makeCollectionLayout() -> UICollectionViewLayout {
-        let numberOfColumns: CGFloat = 1  // Number of columns
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1 / numberOfColumns), heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = .zero // Set spacing between items
+        item.contentInsets = .zero
 
-        // Define group size
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(250))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .zero
-        section.interGroupSpacing = 0 // Spacing between groups
+        section.interGroupSpacing = 0
 
         return UICollectionViewCompositionalLayout(section: section)
     }
 
     func makeLayout() {
         view.addSubview(collectionView)
-        collectionView.backgroundColor = .systemBackground
-        collectionView.delegate = self
-        collectionView.dataSource = dataSource
-        collectionView.registerCell(ArtworkCollectionViewCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -101,5 +107,18 @@ private extension OverviewViewController {
 extension OverviewViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         (cell as? CollectionViewDetachable)?.onDetach()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        interactor.didSelect(item: indexPath.item)
+    }
+}
+
+extension OverviewViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        guard let item = indexPaths.first?.item else { return }
+        if interactor.canLoadMore(item: item) {
+            interactor.loadMore()
+        }
     }
 }
