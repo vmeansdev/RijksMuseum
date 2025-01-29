@@ -28,7 +28,7 @@ final class OverviewPresenter: OverviewPresenterProtocol {
             view?.displayLoading()
         case let .loaded(overview):
             let collection = overview.artworks.map {
-                ArtworkViewModel(id: $0.id, title: $0.title, author: $0.principalOrFirstMaker, previewURL: URL(string: $0.webImage.url)!)
+                ArtworkViewModel(id: $0.id, title: $0.title, author: $0.principalOrFirstMaker, previewURL: URL(string: $0.headerImage.url)!)
             }
             view?.displayArworks(collection)
         case let .error(error):
