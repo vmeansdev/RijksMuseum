@@ -6,8 +6,8 @@ public protocol Client {
 }
 
 public extension Client {
-    func get(_ endpoint: String, params: [String: AnyEncodable]? = nil, headers: [String: String]? = nil) async throws -> Data {
-        try await request(.init(method: .get, url: endpoint, queryParams: params, headers: headers)).body
+    func get(_ endpoint: String, queryParams: [String: AnyEncodable]? = nil, headers: [String: String]? = nil) async throws -> Data {
+        try await request(.init(method: .get, url: endpoint, queryParams: queryParams, headers: headers)).body
     }
 
     func post(
@@ -39,5 +39,43 @@ public extension Client {
 
     func delete(_ endpoint: String, queryParams: [String: AnyEncodable]? = nil, headers: [String: String]? = nil) async throws -> Data {
         try await request(.init(method: .delete, url: endpoint, queryParams: queryParams, headers: headers)).body
+    }
+}
+
+// MARK: - QueryParametersConvertible support API
+public extension Client {
+    func get(_ endpoint: String, queryParams: QueryParametersConvertible? = nil, headers: [String: String]? = nil) async throws -> Data {
+        try await get(endpoint, queryParams: queryParams?.params, headers: headers)
+    }
+
+    func post(
+        _ endpoint: String,
+        queryParams: QueryParametersConvertible? = nil,
+        bodyParams: AnyEncodable? = nil,
+        headers: [String: String]? = nil
+    ) async throws -> Data {
+        try await post(endpoint, queryParams: queryParams?.params, bodyParams: bodyParams, headers: headers)
+    }
+
+    func put(
+        _ endpoint: String,
+        queryParams: QueryParametersConvertible? = nil,
+        bodyParams: AnyEncodable? = nil,
+        headers: [String: String]? = nil
+    ) async throws -> Data {
+        try await put(endpoint, queryParams: queryParams?.params, bodyParams: bodyParams, headers: headers)
+    }
+
+    func patch(
+        _ endpoint: String,
+        queryParams: QueryParametersConvertible? = nil,
+        bodyParams: AnyEncodable? = nil,
+        headers: [String: String]? = nil
+    ) async throws -> Data {
+        try await patch(endpoint, queryParams: queryParams?.params, bodyParams: bodyParams, headers: headers)
+    }
+
+    func delete(_ endpoint: String, queryParams: QueryParametersConvertible? = nil, headers: [String: String]? = nil) async throws -> Data {
+        try await delete(endpoint, queryParams: queryParams?.params, headers: headers)
     }
 }

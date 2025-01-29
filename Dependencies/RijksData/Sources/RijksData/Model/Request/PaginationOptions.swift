@@ -9,11 +9,4 @@ public struct PaginationOptions: QueryParametersConvertible, Sendable {
         self.page = page
         self.limit = limit
     }
-
-    public func toParams(with apiKey: String) -> [String: AnyEncodable] {
-        var params = self.params
-        params["key"] = AnyEncodable(apiKey)
-        return params
-    }
 }
-
