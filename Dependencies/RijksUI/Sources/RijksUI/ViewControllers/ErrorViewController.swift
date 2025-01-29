@@ -5,7 +5,7 @@ public struct ErrorViewModel {
     let retryAction: (() -> Void)?
 }
 
-class ErrorViewController: UIViewController {
+public class ErrorViewController: UIViewController {
     private lazy var messageLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -38,7 +38,7 @@ class ErrorViewController: UIViewController {
     }()
     private let viewModel: ErrorViewModel
 
-    init(viewModel: ErrorViewModel) {
+    public init(viewModel: ErrorViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = .systemBackground
@@ -46,11 +46,11 @@ class ErrorViewController: UIViewController {
         makeLayout()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
