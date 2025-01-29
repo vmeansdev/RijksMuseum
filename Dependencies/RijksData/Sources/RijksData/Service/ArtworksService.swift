@@ -23,7 +23,7 @@ public final class ArtworksService: ArtworksServiceProtocol {
     }
 
     public func fetchCollectionDetails(for culture: Culture, objectNumber: String) async throws -> Artwork {
-        let response = try await client.get("\(culture.rawValue)/\(objectNumber)", queryParams: KeyParameters(key: apiKey))
+        let response = try await client.get("\(culture.rawValue)/collection/\(objectNumber)", queryParams: KeyParameters(key: apiKey))
         return try decoder.decode(CollectionDetailsResponse.self, from: response).artObject
     }
 }
