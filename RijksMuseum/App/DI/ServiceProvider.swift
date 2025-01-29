@@ -6,10 +6,16 @@ protocol ServiceProviderProtocol {
 }
 
 final class ServiceProvider: ServiceProviderProtocol {
-    let artworksService: ArtworksServiceProtocol
+    private let apiKey: String
+    private let httpClient: Client
 
     init(apiKey: String, httpClient: Client) {
-        self.artworksService = ArtworksService(apiKey: apiKey, client: httpClient)
+        self.apiKey = apiKey
+        self.httpClient = httpClient
+    }
+
+    var artworksService: ArtworksServiceProtocol {
+        ArtworksService(apiKey: apiKey, client: httpClient)
     }
 }
 

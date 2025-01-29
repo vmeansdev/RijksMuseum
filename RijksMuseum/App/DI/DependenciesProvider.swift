@@ -19,7 +19,7 @@ final class DependenciesProvider: DependenciesProviderProtocol {
         navigationControllerConfigurator: NavigationControllerConfiguratorProtocol
     ) {
         serviceProvider = ServiceProvider(apiKey: Environment.apiKey, httpClient: HttpClient(baseURL: Environment.baseURLString))
-        coordinatorProvider = CoordinatorProvider(router: Router(navigationController: rootNavigationController), serviceProvider: serviceProvider)
+        coordinatorProvider = CoordinatorProvider(rootViewController: rootNavigationController, serviceProvider: serviceProvider)
         navigationControllerConfigurator.configure(navigationController: rootNavigationController)
         windowConfigurator.configure(window: window, navigationController: rootNavigationController)
     }

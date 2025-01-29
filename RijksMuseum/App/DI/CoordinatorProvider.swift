@@ -1,4 +1,4 @@
-import NavigationKit
+import UIKit
 
 @MainActor
 protocol CoordinatorProviderProtocol {
@@ -6,15 +6,15 @@ protocol CoordinatorProviderProtocol {
 }
 
 final class CoordinatorProvider: CoordinatorProviderProtocol {
-    private let router: RouterProtocol
+    private let rootViewController: UINavigationController
     private let serviceProvider: ServiceProviderProtocol
 
-    init(router: RouterProtocol, serviceProvider: ServiceProviderProtocol) {
-        self.router = router
+    init(rootViewController: UINavigationController, serviceProvider: ServiceProviderProtocol) {
+        self.rootViewController = rootViewController
         self.serviceProvider = serviceProvider
     }
 
     func overviewCoordinator() -> Coordinator {
-        OverviewCoordinator(router: router, serviceProvider: serviceProvider)
+        OverviewCoordinator(rootViewController: rootViewController, serviceProvider: serviceProvider)
     }
 }
