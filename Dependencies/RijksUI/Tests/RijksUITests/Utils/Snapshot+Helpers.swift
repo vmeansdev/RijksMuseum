@@ -14,12 +14,13 @@ public func assertSnapshot<Value: UIView>(
     line: UInt = #line,
     column: UInt = #column
 ) {
+    let frame = CGRect(origin: .zero, size: size)
     let viewController = UIViewController()
-    viewController.view = UIView(frame: UIScreen.main.bounds)
+    viewController.view = UIView(frame: frame)
     viewController.view.addSubview(value)
     defer { viewController.view = nil }
 
-    let window = UIWindow(frame:  UIScreen.main.bounds)
+    let window = UIWindow(frame:  frame)
     window.rootViewController = viewController
     window.makeKeyAndVisible()
 
