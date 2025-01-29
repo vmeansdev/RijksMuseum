@@ -1,9 +1,9 @@
 public struct Label: Codable, Sendable {
-    public let title: String
-    public let makerLine: String
-    public let description: String
-    public let notes: String
-    public let date: String
+    public let title: String?
+    public let makerLine: String?
+    public let description: String?
+    public let notes: String?
+    public let date: String?
 
     public enum CodingKeys: String, CodingKey {
         case title = "title"
@@ -13,7 +13,7 @@ public struct Label: Codable, Sendable {
         case date = "date"
     }
 
-    public init(title: String, makerLine: String, description: String, notes: String, date: String) {
+    public init(title: String?, makerLine: String?, description: String?, notes: String?, date: String?) {
         self.title = title
         self.makerLine = makerLine
         self.description = description

@@ -50,6 +50,8 @@ public struct Artwork: Codable, Sendable {
     public let label: Label?
     public let showImage: Bool
     public let location: String?
+    public let permitDownload: Bool?
+    public let headerImage: Image?
 
     public enum CodingKeys: String, CodingKey {
         case links = "links"
@@ -101,9 +103,11 @@ public struct Artwork: Codable, Sendable {
         case label = "label"
         case showImage = "showImage"
         case location = "location"
+        case permitDownload = "permitDownload"
+        case headerImage = "headerImage"
     }
 
-    public init(links: Links, id: String, priref: String?, objectNumber: String, language: String?, title: String, copyrightHolder: String?, webImage: Image, colors: [Color]?, colorsWithNormalization: [ColorsWithNormalization]?, normalizedColors: [Color]?, normalized32Colors: [Color]?, materialsThesaurus: [AnyCodable]?, techniquesThesaurus: [AnyCodable]?, productionPlacesThesaurus: [AnyCodable]?, titles: [String]?, description: String?, labelText: String?, objectTypes: [String]?, objectCollection: [String]?, makers: [AnyCodable]?, principalMakers: [PrincipalMaker]?, plaqueDescriptionDutch: String?, plaqueDescriptionEnglish: String?, principalMaker: String?, artistRole: String?, associations: [AnyCodable]?, acquisition: Acquisition?, exhibitions: [AnyCodable]?, materials: [String]?, techniques: [AnyCodable]?, productionPlaces: [String]?, dating: Dating?, classification: Classification?, hasImage: Bool, historicalPersons: [String]?, inscriptions: [AnyCodable]?, documentation: [String]?, catRefRPK: [AnyCodable]?, principalOrFirstMaker: String, dimensions: [Dimension]?, physicalProperties: [AnyCodable]?, physicalMedium: String?, longTitle: String, subTitle: String?, scLabelLine: String?, label: Label?, showImage: Bool, location: String?) {
+    public init(links: Links, id: String, priref: String?, objectNumber: String, language: String?, title: String, copyrightHolder: String?, webImage: Image, colors: [Color]?, colorsWithNormalization: [ColorsWithNormalization]?, normalizedColors: [Color]?, normalized32Colors: [Color]?, materialsThesaurus: [AnyCodable]?, techniquesThesaurus: [AnyCodable]?, productionPlacesThesaurus: [AnyCodable]?, titles: [String]?, description: String?, labelText: String?, objectTypes: [String]?, objectCollection: [String]?, makers: [AnyCodable]?, principalMakers: [PrincipalMaker]?, plaqueDescriptionDutch: String?, plaqueDescriptionEnglish: String?, principalMaker: String?, artistRole: String?, associations: [AnyCodable]?, acquisition: Acquisition?, exhibitions: [AnyCodable]?, materials: [String]?, techniques: [AnyCodable]?, productionPlaces: [String]?, dating: Dating?, classification: Classification?, hasImage: Bool, historicalPersons: [String]?, inscriptions: [AnyCodable]?, documentation: [String]?, catRefRPK: [AnyCodable]?, principalOrFirstMaker: String, dimensions: [Dimension]?, physicalProperties: [AnyCodable]?, physicalMedium: String?, longTitle: String, subTitle: String?, scLabelLine: String?, label: Label?, showImage: Bool, location: String?, permitDownload: Bool?, headerImage: Image?) {
         self.links = links
         self.id = id
         self.priref = priref
@@ -153,5 +157,7 @@ public struct Artwork: Codable, Sendable {
         self.label = label
         self.showImage = showImage
         self.location = location
+        self.permitDownload = permitDownload
+        self.headerImage = headerImage
     }
 }

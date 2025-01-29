@@ -1,19 +1,19 @@
 public struct PrincipalMaker: Codable, Sendable {
-    public let name: String
-    public let unFixedName: String
-    public let placeOfBirth: String
-    public let dateOfBirth: String
+    public let name: String?
+    public let unFixedName: String?
+    public let placeOfBirth: String?
+    public let dateOfBirth: String?
     public let dateOfBirthPrecision: String?
-    public let dateOfDeath: String
+    public let dateOfDeath: String?
     public let dateOfDeathPrecision: String?
-    public let placeOfDeath: String
-    public let occupation: [String]
-    public let roles: [String]
-    public let nationality: String
+    public let placeOfDeath: String?
+    public let occupation: [String]?
+    public let roles: [String]?
+    public let nationality: String?
     public let biography: String?
-    public let productionPlaces: [String]
+    public let productionPlaces: [String]?
     public let qualification: String?
-    public let labelDesc: String
+    public let labelDesc: String?
 
     public enum CodingKeys: String, CodingKey {
         case name = "name"
@@ -33,7 +33,7 @@ public struct PrincipalMaker: Codable, Sendable {
         case labelDesc = "labelDesc"
     }
 
-    public init(name: String, unFixedName: String, placeOfBirth: String, dateOfBirth: String, dateOfBirthPrecision: String?, dateOfDeath: String, dateOfDeathPrecision: String?, placeOfDeath: String, occupation: [String], roles: [String], nationality: String, biography: String?, productionPlaces: [String], qualification: String?, labelDesc: String) {
+    public init(name: String?, unFixedName: String?, placeOfBirth: String?, dateOfBirth: String?, dateOfBirthPrecision: String?, dateOfDeath: String?, dateOfDeathPrecision: String?, placeOfDeath: String?, occupation: [String]?, roles: [String]?, nationality: String?, biography: String?, productionPlaces: [String]?, qualification: String?, labelDesc: String?) {
         self.name = name
         self.unFixedName = unFixedName
         self.placeOfBirth = placeOfBirth

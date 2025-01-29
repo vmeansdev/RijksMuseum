@@ -1,7 +1,7 @@
 public struct Image: Codable, Sendable {
-    public let guid: String
-    public let offsetPercentageX: Int
-    public let offsetPercentageY: Int
+    public let guid: String?
+    public let offsetPercentageX: Int?
+    public let offsetPercentageY: Int?
     public let width: Int
     public let height: Int
     public let url: String
@@ -15,7 +15,7 @@ public struct Image: Codable, Sendable {
         case url = "url"
     }
 
-    public init(guid: String, offsetPercentageX: Int, offsetPercentageY: Int, width: Int, height: Int, url: String) {
+    public init(guid: String?, offsetPercentageX: Int?, offsetPercentageY: Int?, width: Int, height: Int, url: String) {
         self.guid = guid
         self.offsetPercentageX = offsetPercentageX
         self.offsetPercentageY = offsetPercentageY
