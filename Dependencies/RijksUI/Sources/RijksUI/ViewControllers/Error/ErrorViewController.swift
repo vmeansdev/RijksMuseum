@@ -1,8 +1,17 @@
 import UIKit
 
-public struct ErrorViewModel {
+public struct ErrorViewModel: Equatable {
     let errorMessage: String
     let retryAction: (() -> Void)?
+
+    public init(errorMessage: String, retryAction: (() -> Void)?) {
+        self.errorMessage = errorMessage
+        self.retryAction = retryAction
+    }
+
+    public static func == (lhs: ErrorViewModel, rhs: ErrorViewModel) -> Bool {
+        lhs.errorMessage == rhs.errorMessage
+    }
 }
 
 public class ErrorViewController: UIViewController {
