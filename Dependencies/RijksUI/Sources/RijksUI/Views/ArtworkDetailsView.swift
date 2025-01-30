@@ -81,10 +81,16 @@ public class ArtworkDetailsView: UIView, ConfigurableView, DetachableView {
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: viewModel.imageURL, placeholder: viewModel.placeholderImage)
         titleLabel.text = viewModel.title
+        titleLabel.accessibilityLabel = Constants.titleAccesibilityLabel
+        titleLabel.accessibilityValue = viewModel.title
         artistLabel.text = viewModel.artist
+        artistLabel.accessibilityLabel = Constants.artistAccesibilityLabel
+        artistLabel.accessibilityValue = viewModel.artist
         if let description = viewModel.description {
-            descriptionLabel.text = description
             descriptionLabel.isHidden = false
+            descriptionLabel.text = description
+            descriptionLabel.accessibilityLabel = Constants.descriptionAccesibilityLabel
+            descriptionLabel.accessibilityValue = description
         } else {
             descriptionLabel.isHidden = true
         }
@@ -92,6 +98,12 @@ public class ArtworkDetailsView: UIView, ConfigurableView, DetachableView {
 
     public func onDetach() {
         imageView.kf.cancelDownloadTask()
+    }
+
+    private enum Constants {
+        static let titleAccesibilityLabel = "Artwork title"
+        static let artistAccesibilityLabel = "Artist name and more information"
+        static let descriptionAccesibilityLabel = "Artwork description"
     }
 }
 
