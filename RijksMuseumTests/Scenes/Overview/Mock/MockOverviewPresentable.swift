@@ -9,8 +9,10 @@ final class MockOverviewPresentable: OverviewPresentable {
     var displayLoadingCalledOnce: Bool {
         displayLoadingCalledTimes == 1
     }
-    func displayLoading() {
+    var displayLoadingCalledInputValue: Bool?
+    func displayLoading(isInitial: Bool) {
         displayLoadingCalledTimes += 1
+        displayLoadingCalledInputValue = isInitial
     }
 
     var displayArtworksCalledTimes = 0
