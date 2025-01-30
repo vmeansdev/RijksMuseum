@@ -84,6 +84,7 @@ public class ArtworkDetailsView: UIView, ConfigurableView, DetachableView {
         artistLabel.text = viewModel.artist
         if let description = viewModel.description {
             descriptionLabel.text = description
+            descriptionLabel.isHidden = false
         } else {
             descriptionLabel.isHidden = true
         }
