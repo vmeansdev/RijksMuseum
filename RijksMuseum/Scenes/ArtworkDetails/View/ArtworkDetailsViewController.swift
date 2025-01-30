@@ -4,7 +4,7 @@ import UIKit
 @MainActor
 protocol ArtworkDetailsPresentable: AnyObject {
     func displayDetails(_ viewModel: ArtworkDetailsViewModel)
-    func displayError(_ error: Error)
+    func displayError(_ error: ErrorViewModel)
 }
 
 final class ArtworkDetailsViewController: UIViewController {
@@ -35,6 +35,7 @@ final class ArtworkDetailsViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        interactor.viewWillUnload()
         if isMovingFromParent {
             myView.onDetach()
         }
@@ -47,6 +48,12 @@ extension ArtworkDetailsViewController: ArtworkDetailsPresentable {
         myView.configure(with: viewModel)
     }
 
-    func displayError(_ error: Error) {
+    func displayError(_ error: ErrorViewModel) {
+        hideErrorIfNeeded()
+        attach(ErrorViewController(viewModel: error))
+    }
+
+    private func hideErrorIfNeeded() {
+        (children.last as? ErrorViewController)?.detach()
     }
 }

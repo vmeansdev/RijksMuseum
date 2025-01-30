@@ -3,6 +3,7 @@ import RijksData
 protocol ArtworkDetailsInteractorProtocol {
     @MainActor
     func viewDidLoad()
+    func viewWillUnload()
 }
 
 final class ArtworkDetailsInteractor: ArtworkDetailsInteractorProtocol {
@@ -26,6 +27,10 @@ final class ArtworkDetailsInteractor: ArtworkDetailsInteractorProtocol {
         currentTask = Task {
             await fecthArtworkDetails()
         }
+    }
+
+    func viewWillUnload() {
+        currentTask?.cancel()
     }
 
     @MainActor

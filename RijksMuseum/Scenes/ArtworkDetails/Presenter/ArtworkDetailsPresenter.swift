@@ -26,7 +26,7 @@ final class ArtworkDetailsPresenter: ArtworkDetailsPresenterProtocol {
     }
 
     func presentError(_ error: any Error) {
-
+        view?.displayError(.init(errorMessage: error.localizedDescription, retryAction: nil))
     }
 }
 
