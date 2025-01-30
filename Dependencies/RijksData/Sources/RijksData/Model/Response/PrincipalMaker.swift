@@ -1,4 +1,4 @@
-public struct PrincipalMaker: Codable, Sendable {
+public struct PrincipalMaker: Codable, Sendable, Equatable {
     public let name: String?
     public let unFixedName: String?
     public let placeOfBirth: String?

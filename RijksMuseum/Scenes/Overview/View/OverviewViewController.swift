@@ -3,12 +3,12 @@ import UIKit
 
 @MainActor
 protocol OverviewPresentable: AnyObject {
-    func displayLoading()
+    func displayLoading(isInitial: Bool)
     func displayArworks(_ artworks: [ArtworkViewModel])
-    func displayError(_ error: Error)
+    func displayError(_ error: ErrorViewModel)
 }
 
-final class OverviewViewController: UIViewController, OverviewPresentable {
+final class OverviewViewController: UIViewController {
     // MARK: - Properties
     private let interactor: OverviewInteractorProtocol
     private lazy var collectionView: UICollectionView = {
@@ -49,28 +49,41 @@ final class OverviewViewController: UIViewController, OverviewPresentable {
         interactor.viewWillUnload()
     }
 
-    // MARK: - OverviewPresentable
-    func displayLoading() {
-        // TODO: handle loading displaying
-    }
-
-    func displayArworks(_ artworks: [ArtworkViewModel]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, ArtworkViewModel>()
-        snapshot.appendSections([0])
-        snapshot.appendItems(artworks)
-        dataSource.apply(snapshot, animatingDifferences: true)
-    }
-
-    func displayError(_ error: Error) {
-        // TODO: handle error displaying
-    }
-
     private func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Int, ArtworkViewModel>(collectionView: collectionView) { collectionView, indexPath, item in
             let cell = collectionView.dequeueReusableCell(ArtworkCollectionViewCell.self, for: indexPath)
             (cell as? ArtworkCollectionViewCell)?.configure(with: item)
             return cell
         }
+    }
+}
+
+extension OverviewViewController: OverviewPresentable {
+    func displayLoading(isInitial: Bool) {
+        guard isInitial else { return }
+        attach(LoadingViewController())
+    }
+
+    private func hideLoadingIfNeeded() {
+        (children.last as? LoadingViewController)?.detach()
+    }
+
+    func displayArworks(_ artworks: [ArtworkViewModel]) {
+        hideErrorIfNeeded()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, ArtworkViewModel>()
+        snapshot.appendSections([0])
+        snapshot.appendItems(artworks)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+
+    func displayError(_ error: ErrorViewModel) {
+        hideErrorIfNeeded()
+        attach(ErrorViewController(viewModel: error))
+    }
+
+    private func hideErrorIfNeeded() {
+        hideLoadingIfNeeded()
+        (children.last as? ErrorViewController)?.detach()
     }
 }
 
@@ -114,6 +127,7 @@ extension OverviewViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDataSourcePrefetching
 extension OverviewViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         guard let item = indexPaths.first?.item else { return }

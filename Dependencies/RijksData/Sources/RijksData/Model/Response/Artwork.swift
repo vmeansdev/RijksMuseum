@@ -1,6 +1,6 @@
 @preconcurrency import AnyCodable
 
-public struct Artwork: Codable, Sendable {
+public struct Artwork: Codable, Sendable, Equatable {
     public let links: Links
     public let id: String
     public let priref: String?

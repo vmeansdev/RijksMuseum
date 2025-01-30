@@ -1,4 +1,4 @@
 public enum Culture: String {
     case nl
-    case en
+    case en // not supported yet
 }

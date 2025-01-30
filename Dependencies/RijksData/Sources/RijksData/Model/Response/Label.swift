@@ -1,4 +1,4 @@
-public struct Label: Codable, Sendable {
+public struct Label: Codable, Sendable, Equatable {
     public let title: String?
     public let makerLine: String?
     public let description: String?

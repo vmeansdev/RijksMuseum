@@ -1,4 +1,4 @@
-public struct Dating: Codable, Sendable {
+public struct Dating: Codable, Sendable, Equatable {
     public let presentingDate: String?
     public let sortingDate: Int?
     public let period: Int?

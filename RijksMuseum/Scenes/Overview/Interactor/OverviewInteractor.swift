@@ -24,9 +24,8 @@ final class OverviewInteractor: OverviewInteractorProtocol {
     private let service: ArtworksServiceProtocol
     private let output: OverviewInteractorOutput
     private(set) var currentTask: Task<Void, Never>?
-
-    private var overview = LoadedOverview(currentPage: 0, artworks: [], hasMoreItems: true)
-    private var isLoading = false
+    private(set) var overview = LoadedOverview(currentPage: 0, artworks: [], hasMoreItems: true)
+    private(set) var isLoading = false
 
     init(
         presenter: OverviewPresenterProtocol,
@@ -40,9 +39,7 @@ final class OverviewInteractor: OverviewInteractorProtocol {
 
     @MainActor
     func viewDidLoad() {
-        currentTask = Task {
-            await fetchCollection(page: 1)
-        }
+        loadNextPage()
     }
 
     func viewWillUnload() {
@@ -51,20 +48,28 @@ final class OverviewInteractor: OverviewInteractorProtocol {
 
     @MainActor
     func didSelect(item: Int) {
-        let artwork = overview.artworks[item]
+        guard let artwork = overview.artworks[safe: item] else {
+            return
+        }
         output.didSelect(artwork: artwork)
     }
 
     @MainActor
     func loadMore() {
         guard !isLoading, overview.hasMoreItems else { return }
-        currentTask = Task {
-            await fetchCollection(page: overview.currentPage + 1)
-        }
+        loadNextPage()
     }
 
     func canLoadMore(item: Int) -> Bool {
-        overview.artworks.count - 5 <= item && overview.hasMoreItems
+        let nextBatchThreshold = max(overview.artworks.count - Constants.loadMoreThreshold, Constants.loadMoreThreshold)
+        return item >= nextBatchThreshold && overview.hasMoreItems && !isLoading
+    }
+
+    private func loadNextPage() {
+        currentTask?.cancel()
+        currentTask = Task {
+            await fetchCollection(page: overview.currentPage + 1)
+        }
     }
 
     @MainActor
@@ -73,15 +78,20 @@ final class OverviewInteractor: OverviewInteractorProtocol {
         do {
             guard !Task.isCancelled else { return }
             isLoading = true
-            presenter.present(state: .loading)
-            let artworks = try await service.fetchCollection(for: .nl, options: .init(page: page, limit: 10))
+            presenter.present(state: .loading(isInitial: overview.currentPage == 0))
+            let artworks = try await service.fetchCollection(for: .nl, options: .init(page: page, limit: Constants.artworksPerPage))
             let overview = LoadedOverview(currentPage: page, artworks: overview.artworks + artworks, hasMoreItems: !artworks.isEmpty)
             self.overview = overview
             presenter.present(state: .loaded(overview))
             isLoading = false
         } catch {
             isLoading = false
-            presenter.present(state: .error(error))
+            presenter.present(state: .error(error, { [weak self] in self?.loadMore() }))
         }
+    }
+
+    private enum Constants {
+        static let loadMoreThreshold = 5
+        static let artworksPerPage = 10
     }
 }

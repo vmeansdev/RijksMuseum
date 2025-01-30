@@ -1,4 +1,4 @@
-public struct Acquisition: Codable, Sendable {
+public struct Acquisition: Codable, Sendable, Equatable {
     public let method: String?
     public let date: String?
     public let creditLine: String?

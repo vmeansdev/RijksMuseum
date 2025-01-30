@@ -1,4 +1,4 @@
-public struct Links: Codable, Sendable {
+public struct Links: Codable, Sendable, Equatable {
     public let linksSelf: String?
     public let web: String?
     public let search: String?

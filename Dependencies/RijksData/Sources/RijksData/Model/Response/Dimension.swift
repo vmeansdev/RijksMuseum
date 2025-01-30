@@ -1,4 +1,4 @@
-public struct Dimension: Codable, Sendable {
+public struct Dimension: Codable, Sendable, Equatable {
     public let unit: String?
     public let type: String?
     public let precision: String?

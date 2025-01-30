@@ -2,16 +2,31 @@ import Foundation
 import RijksData
 import RijksUI
 
-struct LoadedOverview {
+struct LoadedOverview: Equatable {
     let currentPage: Int
     let artworks: [Artwork]
     let hasMoreItems: Bool
 }
 
-enum OverviewState {
-    case loading
+typealias RetryAction = () -> Void
+
+enum OverviewState: Equatable {
+    case loading(isInitial: Bool)
     case loaded(LoadedOverview)
-    case error(Error)
+    case error(Error, RetryAction?)
+
+    static func == (lhs: OverviewState, rhs: OverviewState) -> Bool {
+        switch (lhs, rhs) {
+        case (.loading, .loading):
+            return true
+        case let (.loaded(lhs), .loaded(rhs)):
+            return lhs == rhs
+        case let (.error(lhs, _), .error(rhs, _)):
+            return lhs.localizedDescription == rhs.localizedDescription
+        default:
+            return false
+        }
+    }
 }
 
 @MainActor
@@ -24,15 +39,16 @@ final class OverviewPresenter: OverviewPresenterProtocol {
 
     func present(state: OverviewState) {
         switch state {
-        case .loading:
-            view?.displayLoading()
+        case let .loading(isInitial):
+            view?.displayLoading(isInitial: isInitial)
         case let .loaded(overview):
-            let collection = overview.artworks.map {
-                ArtworkViewModel(id: $0.id, title: $0.title, author: $0.principalOrFirstMaker, previewURL: URL(string: $0.headerImage.url)!)
+            let collection: [ArtworkViewModel] = overview.artworks.compactMap {
+                guard let previewURLString = $0.headerImage?.url, let previewURL = URL(string: previewURLString) else { return nil }
+                return ArtworkViewModel(id: $0.id, title: $0.title, author: $0.principalOrFirstMaker, previewURL: previewURL)
             }
             view?.displayArworks(collection)
-        case let .error(error):
-            view?.displayError(error)
+        case let .error(error, action):
+            view?.displayError(ErrorViewModel(errorMessage: error.localizedDescription, retryAction: action))
         }
     }
 }

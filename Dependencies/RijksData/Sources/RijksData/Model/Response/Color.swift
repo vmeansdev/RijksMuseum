@@ -1,4 +1,4 @@
-public struct Color: Codable, Sendable {
+public struct Color: Codable, Sendable, Equatable {
     public let percentage: Int
     public let hex: String
 

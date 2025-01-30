@@ -1,4 +1,4 @@
-public struct Image: Codable, Sendable {
+public struct Image: Codable, Sendable, Equatable {
     public let guid: String?
     public let offsetPercentageX: Int?
     public let offsetPercentageY: Int?
